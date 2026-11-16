@@ -1,0 +1,17 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      # Unit tests cover the dependency-light parts (labels, metrics, RAG utils, grounding).
+      - run: pip install numpy pyyaml pytest
+      - run: pytest -q

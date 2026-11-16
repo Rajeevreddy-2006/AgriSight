@@ -1,0 +1,8 @@
+{"id": "q01", "question": "My tomato leaves have dark wet-looking patches and white growth underneath after rainy days. What should I do?", "expected_source": "example_late_blight.md", "reference_keywords": ["remove", "infected", "irrigation", "KVK"]}
+{"id": "q02", "question": "How can I stop late blight from spreading in my potato field?", "expected_source": "example_late_blight.md", "reference_keywords": ["remove", "spacing", "rotation"]}
+{"id": "q03", "question": "Which fungicide dose should I spray for tomato late blight?", "expected_source": "example_late_blight.md", "reference_keywords": ["label", "KVK"]}
+{"id": "q04", "question": "Should I spray pesticide when rain is expected tomorrow?", "expected_source": "example_safe_spraying.md", "reference_keywords": ["rain", "wind"]}
+{"id": "q05", "question": "What protective clothing should I wear while spraying pesticides?", "expected_source": "example_safe_spraying.md", "reference_keywords": ["gloves", "mask"]}
+{"id": "q06", "question": "What is integrated pest management and why should I use it?", "expected_source": "example_ipm_principles.md", "reference_keywords": ["monitor", "resistant", "rotation"]}
+{"id": "q07", "question": "How do I dispose of empty pesticide containers?", "expected_source": "example_safe_spraying.md", "reference_keywords": ["reuse"]}
+{"id": "q08", "question": "Can I save seeds or tubers from plants that had blight for next season?", "expected_source": "example_late_blight.md", "reference_keywords": ["disease-free"]}

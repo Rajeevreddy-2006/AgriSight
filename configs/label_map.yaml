@@ -1,0 +1,146 @@
+# Canonical label set shared by PlantVillage (lab photos) and PlantDoc (field photos).
+# Folder names are matched after normalisation (lowercase, only a-z and 0-9),
+# so small spelling/spacing differences between dataset versions still match.
+# If prepare_data.py reports "unmapped" folders, add their names here.
+
+classes:
+  apple_scab:
+    crop: Apple
+    disease: Scab
+    plantvillage: ["Apple___Apple_scab"]
+    plantdoc: ["Apple Scab Leaf"]
+  apple_rust:
+    crop: Apple
+    disease: Cedar apple rust
+    plantvillage: ["Apple___Cedar_apple_rust"]
+    plantdoc: ["Apple rust leaf"]
+  apple_healthy:
+    crop: Apple
+    disease: Healthy
+    plantvillage: ["Apple___healthy"]
+    plantdoc: ["Apple leaf"]
+  bell_pepper_bacterial_spot:
+    crop: Bell pepper
+    disease: Bacterial spot
+    plantvillage: ["Pepper,_bell___Bacterial_spot"]
+    plantdoc: ["Bell_pepper leaf spot"]
+  bell_pepper_healthy:
+    crop: Bell pepper
+    disease: Healthy
+    plantvillage: ["Pepper,_bell___healthy"]
+    plantdoc: ["Bell_pepper leaf"]
+  blueberry_healthy:
+    crop: Blueberry
+    disease: Healthy
+    plantvillage: ["Blueberry___healthy"]
+    plantdoc: ["Blueberry leaf"]
+  cherry_healthy:
+    crop: Cherry
+    disease: Healthy
+    plantvillage: ["Cherry_(including_sour)___healthy"]
+    plantdoc: ["Cherry leaf"]
+  corn_gray_leaf_spot:
+    crop: Maize
+    disease: Gray leaf spot
+    plantvillage: ["Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot"]
+    plantdoc: ["Corn Gray leaf spot"]
+  corn_northern_leaf_blight:
+    crop: Maize
+    disease: Northern leaf blight
+    plantvillage: ["Corn_(maize)___Northern_Leaf_Blight"]
+    plantdoc: ["Corn leaf blight"]
+  corn_common_rust:
+    crop: Maize
+    disease: Common rust
+    plantvillage: ["Corn_(maize)___Common_rust_"]
+    plantdoc: ["Corn rust leaf"]
+  grape_black_rot:
+    crop: Grape
+    disease: Black rot
+    plantvillage: ["Grape___Black_rot"]
+    plantdoc: ["grape leaf black rot"]
+  grape_healthy:
+    crop: Grape
+    disease: Healthy
+    plantvillage: ["Grape___healthy"]
+    plantdoc: ["grape leaf"]
+  peach_healthy:
+    crop: Peach
+    disease: Healthy
+    plantvillage: ["Peach___healthy"]
+    plantdoc: ["Peach leaf"]
+  potato_early_blight:
+    crop: Potato
+    disease: Early blight
+    plantvillage: ["Potato___Early_blight"]
+    plantdoc: ["Potato leaf early blight"]
+  potato_late_blight:
+    crop: Potato
+    disease: Late blight
+    plantvillage: ["Potato___Late_blight"]
+    plantdoc: ["Potato leaf late blight"]
+  raspberry_healthy:
+    crop: Raspberry
+    disease: Healthy
+    plantvillage: ["Raspberry___healthy"]
+    plantdoc: ["Raspberry leaf"]
+  soybean_healthy:
+    crop: Soybean
+    disease: Healthy
+    plantvillage: ["Soybean___healthy"]
+    plantdoc: ["Soyabean leaf", "Soybean leaf"]
+  squash_powdery_mildew:
+    crop: Squash
+    disease: Powdery mildew
+    plantvillage: ["Squash___Powdery_mildew"]
+    plantdoc: ["Squash Powdery mildew leaf"]
+  strawberry_healthy:
+    crop: Strawberry
+    disease: Healthy
+    plantvillage: ["Strawberry___healthy"]
+    plantdoc: ["Strawberry leaf"]
+  tomato_bacterial_spot:
+    crop: Tomato
+    disease: Bacterial spot
+    plantvillage: ["Tomato___Bacterial_spot"]
+    plantdoc: ["Tomato leaf bacterial spot"]
+  tomato_early_blight:
+    crop: Tomato
+    disease: Early blight
+    plantvillage: ["Tomato___Early_blight"]
+    plantdoc: ["Tomato Early blight leaf"]
+  tomato_late_blight:
+    crop: Tomato
+    disease: Late blight
+    plantvillage: ["Tomato___Late_blight"]
+    plantdoc: ["Tomato leaf late blight"]
+  tomato_leaf_mold:
+    crop: Tomato
+    disease: Leaf mold
+    plantvillage: ["Tomato___Leaf_Mold"]
+    plantdoc: ["Tomato mold leaf"]
+  tomato_septoria_leaf_spot:
+    crop: Tomato
+    disease: Septoria leaf spot
+    plantvillage: ["Tomato___Septoria_leaf_spot"]
+    plantdoc: ["Tomato Septoria leaf spot"]
+  tomato_spider_mites:
+    crop: Tomato
+    disease: Two-spotted spider mites
+    plantvillage: ["Tomato___Spider_mites Two-spotted_spider_mite"]
+    plantdoc: ["Tomato two spotted spider mites leaf"]
+  tomato_mosaic_virus:
+    crop: Tomato
+    disease: Mosaic virus
+    plantvillage: ["Tomato___Tomato_mosaic_virus"]
+    plantdoc: ["Tomato leaf mosaic virus"]
+  tomato_yellow_leaf_curl_virus:
+    crop: Tomato
+    disease: Yellow leaf curl virus
+    plantvillage: ["Tomato___Tomato_Yellow_Leaf_Curl_Virus"]
+    plantdoc: ["Tomato leaf yellow virus"]
+  tomato_healthy:
+    crop: Tomato
+    disease: Healthy
+    plantvillage: ["Tomato___healthy"]
+    plantdoc: ["Tomato leaf"]

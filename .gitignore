@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Data and outputs (large; never commit)
+data/raw/
+data/manifests/
+data/index/
+runs/
+*.pt
+*.onnx
+wandb/
+
+# OS / editors
+.DS_Store
+.vscode/
+.idea/
+.env

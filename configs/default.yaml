@@ -1,0 +1,61 @@
+seed: 42
+
+paths:
+  manifest_dir: data/manifests     # written by scripts/prepare_data.py
+  runs_dir: runs                   # checkpoints, logs, evaluation results
+  kb_dir: knowledge_base           # agriculture guideline documents for RAG
+  index_dir: data/index            # RAG index built by `python -m agrisight.rag.index`
+
+data:
+  label_map: configs/label_map.yaml
+  image_size: 224
+  num_workers: 4
+
+train:
+  # Any timm model name. Good choices to compare:
+  #   resnet50, efficientnet_b0 (BatchNorm -> AdaBN works)
+  #   convnext_tiny.fb_in22k, vit_small_patch16_224.augreg_in21k (LayerNorm)
+  model: convnext_tiny.fb_in22k
+  pretrained: true
+  epochs: 15
+  batch_size: 64
+  lr: 3.0e-4
+  weight_decay: 0.05
+  label_smoothing: 0.1
+  drop_rate: 0.2
+  augment: field        # none | basic | field
+  amp: true
+  patience: 4           # early stopping on lab validation accuracy
+
+uncertainty:
+  abstain_threshold: 0.6   # below this calibrated confidence the model says "not sure"
+  mc_samples: 20
+
+rag:
+  embed_model: BAAI/bge-small-en-v1.5
+  reranker: BAAI/bge-reranker-base   # set to null to disable reranking
+  chunk_size: 800
+  chunk_overlap: 150
+  candidates: 30
+  top_k: 5
+  mode: hybrid+rerank      # bm25 | dense | hybrid | hybrid+rerank
+
+llm:
+  # Any OpenAI-compatible endpoint. Default: Ollama running locally.
+  base_url: http://localhost:11434/v1
+  model: qwen2.5:7b-instruct
+  api_key_env: LLM_API_KEY
+  temperature: 0.2
+  max_tokens: 700
+
+vlm:
+  backend: ollama          # ollama | hf | none
+  ollama_url: http://localhost:11434
+  ollama_model: qwen2.5vl:7b
+  hf_model: Qwen/Qwen2.5-VL-3B-Instruct
+
+asr:
+  model: openai/whisper-small
+
+weather:
+  enabled: true
