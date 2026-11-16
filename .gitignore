@@ -21,3 +21,8 @@ wandb/
 .vscode/
 .idea/
 .env
+
+# Smoke-test outputs
+runs_smoke/
+docs/RESULTS_smoke.md
+docs/figures/*smoke*

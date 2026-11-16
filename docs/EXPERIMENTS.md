@@ -1,7 +1,11 @@
 # Experiments
 
-Fill these tables with your own numbers. Never copy numbers from papers into them.
-Run each setting with at least 2 seeds if time allows and report mean ± std.
+**Run everything with one command:** `bash scripts/run_all.sh all` (or the Colab notebook
+`notebooks/AgriSight_full_pipeline.ipynb`). The tables are generated automatically into
+[RESULTS.md](RESULTS.md). This page explains each experiment and the individual commands.
+
+Never copy numbers from papers into your results. If time allows, repeat the key runs with a
+second seed (`seed:` in `configs/default.yaml`) and report mean ± std.
 
 ## RQ1. How large is the lab → field gap, and what closes it?
 

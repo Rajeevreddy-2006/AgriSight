@@ -7,12 +7,11 @@
   never used.
 
 Example:
-  python -m agrisight.domain_adapt --init runs/convnext_field_aug/best.pt --run-name convnext_dann
+  python -m agrisight.domain_adapt --init runs/convnext_field/best.pt --run-name convnext_dann
 """
 from __future__ import annotations
 
 import argparse
-import itertools
 import math
 import warnings
 from pathlib import Path
@@ -38,6 +37,12 @@ def adabn(model: nn.Module, loader, device) -> nn.Module:
         model(x.to(device))
     model.eval()
     return model
+
+
+def endless(loader):
+    """Re-iterate a DataLoader forever (fresh augmentation each pass, no batch caching)."""
+    while True:
+        yield from loader
 
 
 class GradReverse(torch.autograd.Function):
@@ -74,6 +79,7 @@ def main():
     ap.add_argument("--lr", type=float, default=5e-5)
     ap.add_argument("--batch-size", type=int, default=32)
     ap.add_argument("--domain-weight", type=float, default=1.0)
+    ap.add_argument("--max-steps", type=int, help="debug: stop each epoch after N steps")
     ap.add_argument("--device")
     args = ap.parse_args()
 
@@ -97,7 +103,8 @@ def main():
         [{"params": model.parameters(), "lr": args.lr}, {"params": head.parameters(), "lr": args.lr * 10}],
         weight_decay=0.01,
     )
-    total = args.epochs * len(src_loader)
+    steps_per_epoch = min(len(src_loader), args.max_steps or len(src_loader))
+    total = args.epochs * steps_per_epoch
     step = 0
     run_dir = Path(cfg["paths"]["runs_dir"]) / args.run_name
     run_dir.mkdir(parents=True, exist_ok=True)
@@ -105,9 +112,11 @@ def main():
     for epoch in range(1, args.epochs + 1):
         model.train()
         head.train()
-        tgt_iter = itertools.cycle(tgt_loader)
+        tgt_iter = endless(tgt_loader)
         cls_sum = dom_sum = dom_acc = n = 0.0
-        for xs, ys in tqdm(src_loader, desc=f"DANN epoch {epoch}", leave=False):
+        for i, (xs, ys) in enumerate(tqdm(src_loader, desc=f"DANN epoch {epoch}", leave=False, total=steps_per_epoch)):
+            if i >= steps_per_epoch:
+                break
             xt, _ = next(tgt_iter)  # field labels are ignored
             xs, ys, xt = xs.to(device), ys.to(device), xt.to(device)
             p = step / max(1, total)

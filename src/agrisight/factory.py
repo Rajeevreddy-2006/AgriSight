@@ -8,7 +8,7 @@ from pathlib import Path
 from .agent.agent import AgriSight
 from .llm import LLMClient
 
-DEFAULT_CKPT = "runs/convnext_field_aug/best.pt"
+DEFAULT_CKPT = "runs/convnext_field/best.pt"
 
 
 def build_agent(cfg: dict, ckpt: str | None = None) -> AgriSight:

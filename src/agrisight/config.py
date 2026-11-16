@@ -14,7 +14,13 @@ DEFAULT_CONFIG = "configs/default.yaml"
 def load_config(path: str | None = None) -> dict:
     path = path or os.environ.get("AGRISIGHT_CONFIG", DEFAULT_CONFIG)
     with open(path, encoding="utf-8") as f:
-        return yaml.safe_load(f)
+        cfg = yaml.safe_load(f)
+    # Environment overrides (handy on Colab: keep outputs on Google Drive).
+    for env, key in (("AGRISIGHT_RUNS_DIR", "runs_dir"), ("AGRISIGHT_INDEX_DIR", "index_dir"),
+                     ("AGRISIGHT_MANIFEST_DIR", "manifest_dir")):
+        if os.environ.get(env):
+            cfg["paths"][key] = os.environ[env]
+    return cfg
 
 
 def set_seed(seed: int) -> None:

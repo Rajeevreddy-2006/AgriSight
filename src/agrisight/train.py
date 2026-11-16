@@ -2,7 +2,7 @@
 
 Examples:
   # Baseline: train on PlantVillage only
-  python -m agrisight.train --run-name convnext_field_aug
+  python -m agrisight.train --run-name convnext_field
 
   # Compare backbones / augmentation
   python -m agrisight.train --run-name resnet50_basic --model resnet50 --augment basic
@@ -12,7 +12,7 @@ Examples:
 
   # Knowledge distillation into a small phone-friendly student
   python -m agrisight.train --run-name student_mnv3 --model mobilenetv3_large_100 \
-      --teacher runs/convnext_field_aug/best.pt
+      --teacher runs/convnext_field/best.pt
 """
 from __future__ import annotations
 

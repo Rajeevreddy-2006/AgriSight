@@ -19,8 +19,7 @@ including pesticide doses they made up. AgriSight studies and fixes both problem
 4. **Deployment:** distillation + int8 quantization for offline use on cheap phones,
    a REST API, and a Streamlit demo with photo and voice input.
 
-> Status: research prototype. Results tables live in [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md)
-> and are filled in as experiments are run.
+> Status: research prototype. Results are generated automatically into [docs/RESULTS.md](docs/RESULTS.md).
 
 ## Architecture
 
@@ -57,7 +56,7 @@ flowchart LR
 
 ```
 configs/            default.yaml (all settings), label_map.yaml (28 shared classes)
-scripts/            download_data.sh, prepare_data.py
+scripts/            download_data.sh, prepare_data.py, run_all.sh, make_report.py
 src/agrisight/
   data.py           datasets + field-style augmentation
   models.py         timm backbones, checkpoint I/O
@@ -76,7 +75,7 @@ app/                Streamlit demo
 eval/               RQ3 and RQ4 evaluation scripts + sample questions
 knowledge_base/     guideline documents for RAG (replace the examples!)
 docs/               PLAN.md (8-week plan), EXPERIMENTS.md (result tables)
-notebooks/          Colab quickstart
+notebooks/          Colab notebook that runs the whole project
 tests/              unit tests (run in CI)
 ```
 
@@ -84,7 +83,7 @@ tests/              unit tests (run in CI)
 
 ### 1. Install
 ```bash
-git clone https://github.com/<you>/agrisight.git && cd agrisight
+git clone https://github.com/Rajeevreddy-2006/AgriSight.git && cd AgriSight
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 pip install -e .
@@ -100,8 +99,8 @@ python scripts/prepare_data.py \
 
 ### 3. Train and evaluate the vision model
 ```bash
-python -m agrisight.train --run-name convnext_field_aug
-python -m agrisight.evaluate --ckpt runs/convnext_field_aug/best.pt --save-temperature
+python -m agrisight.train --run-name convnext_field
+python -m agrisight.evaluate --ckpt runs/convnext_field/best.pt --save-temperature
 ```
 `evaluate` prints a table for lab and field, saves `eval.json` and confusion matrices,
 and reports the lab → field gap.
@@ -121,7 +120,7 @@ and export `LLM_API_KEY`. To run the VLM inside Python (e.g. on Colab), set
 
 ### 5. Run the app or the API
 ```bash
-export AGRISIGHT_CKPT=runs/convnext_field_aug/best.pt
+export AGRISIGHT_CKPT=runs/convnext_field/best.pt
 streamlit run app/streamlit_app.py
 # or
 uvicorn agrisight.api:app --port 8000      # interactive docs at /docs
@@ -130,8 +129,18 @@ curl -F image=@leaf.jpg -F question="What should I do?" -F language=te http://lo
 Every component is optional: without a checkpoint the VLM diagnoses alone; without
 an index the assistant refuses to give treatment details.
 
-### 6. Experiments
-All commands and result tables: [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md).
+### 6. Run every experiment
+```bash
+SMOKE=1 bash scripts/run_all.sh all   # 10-minute check that everything works
+bash scripts/run_all.sh vision        # RQ1, RQ2, RQ5 (GPU, several hours, resumable)
+bash scripts/run_all.sh assistant     # RQ3, RQ4 (needs the LLM/VLM from step 4)
+```
+This fills [docs/RESULTS.md](docs/RESULTS.md), the figure and the table below. On Colab, use
+[notebooks/AgriSight_full_pipeline.ipynb](notebooks/AgriSight_full_pipeline.ipynb) instead:
+open it, choose a T4 GPU, and Run all. Details of each experiment: [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md).
+
+### 7. Public demo
+See [docs/DEPLOY.md](docs/DEPLOY.md) for a free Hugging Face Spaces demo or Docker.
 
 ### Tests
 ```bash
@@ -140,13 +149,9 @@ pytest -q
 
 ## Results
 
-| Experiment | Result |
-|---|---|
-| Lab → field gap (best baseline) | _to fill_ |
-| Field accuracy after augmentation + adaptation | _to fill_ |
-| Errors caught by abstention at 0.6 | _to fill_ |
-| Answers with unsupported numbers: LLM only → RAG | _to fill_ |
-| Phone model size / latency | _to fill_ |
+<!-- RESULTS:START -->
+_No results yet. Run `bash scripts/run_all.sh all`._
+<!-- RESULTS:END -->
 
 ## Safety and limitations
 

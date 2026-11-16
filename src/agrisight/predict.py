@@ -1,7 +1,7 @@
 """Single-image prediction with calibrated confidence and abstention.
 
 CLI:
-  python -m agrisight.predict --ckpt runs/convnext_field_aug/best.pt leaf.jpg
+  python -m agrisight.predict --ckpt runs/convnext_field/best.pt leaf.jpg
 """
 from __future__ import annotations
 

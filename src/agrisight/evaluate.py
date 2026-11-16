@@ -2,11 +2,11 @@
 selective prediction (abstaining when unsure), and the lab -> field gap.
 
 Examples:
-  python -m agrisight.evaluate --ckpt runs/convnext_field_aug/best.pt
+  python -m agrisight.evaluate --ckpt runs/convnext_field/best.pt
   # Test-time adaptation with AdaBN (needs a BatchNorm model such as resnet50):
   python -m agrisight.evaluate --ckpt runs/resnet50/best.pt --adabn-manifest field_train
   # Store the fitted temperature in the checkpoint for the app to use:
-  python -m agrisight.evaluate --ckpt runs/convnext_field_aug/best.pt --save-temperature
+  python -m agrisight.evaluate --ckpt runs/convnext_field/best.pt --save-temperature
 """
 from __future__ import annotations
 
@@ -102,7 +102,17 @@ def main():
         temperature = fit_temperature(logits, labels)
         print(f"Fitted temperature on {args.calib_manifest}: T = {temperature:.3f}")
 
-    results = {"checkpoint": str(args.ckpt), "model": ckpt["model_name"], "temperature": temperature, "sets": {}}
+    results = {
+        "checkpoint": str(args.ckpt),
+        "run": Path(args.ckpt).parent.name,
+        "model": ckpt["model_name"],
+        "augment": ckpt.get("augment"),
+        "train_manifests": ckpt.get("train_manifests", "lab_train"),
+        "adaptation": "adabn" if args.adabn_manifest else ckpt.get("adaptation", "none"),
+        "temperature": temperature,
+        "abstain_threshold": threshold,
+        "sets": {},
+    }
     for name in args.manifests.split(","):
         m = model
         if args.adabn_manifest and name.startswith("field"):

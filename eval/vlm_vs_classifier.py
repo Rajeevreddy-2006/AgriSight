@@ -3,7 +3,7 @@ vision-language model, or a confidence-based hybrid diagnose best?
 
 Hybrid rule: trust the classifier when its calibrated confidence >= t, otherwise ask the VLM.
 
-  python eval/vlm_vs_classifier.py --ckpt runs/convnext_field_aug/best.pt --limit 300
+  python eval/vlm_vs_classifier.py --ckpt runs/convnext_field/best.pt --limit 300
 """
 from __future__ import annotations
 

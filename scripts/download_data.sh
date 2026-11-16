@@ -13,7 +13,9 @@ fi
 
 if [ ! -d PlantVillage-Dataset ]; then
   echo "Downloading PlantVillage (lab photos)..."
-  git clone --depth 1 https://github.com/spMohanty/PlantVillage-Dataset.git
+  # Sparse checkout: only the colour images (skips grayscale/segmented copies).
+  git clone --depth 1 --filter=blob:none --sparse https://github.com/spMohanty/PlantVillage-Dataset.git
+  git -C PlantVillage-Dataset sparse-checkout set raw/color
 fi
 
 cd ../..
